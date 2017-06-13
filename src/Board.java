@@ -26,7 +26,6 @@ class Board implements Cloneable {
         turn = -turn;
         history.push(pos);
     }
-
     void undoMove() {
         assert history.size() != 0;
         board[history.pop()] = 0;
@@ -88,10 +87,13 @@ class Board implements Cloneable {
         char[] repr = {'O', '.', 'X'};
         String s = "\n";
         for (int i = 0; i <= 2; i++) {
-            for (int j = 0; j <= 2; j++) s += repr[board[i * 3 + j] + 1];
+            for (int j = 0; j <= 2; j++) s += repr[board[i * 3 + j] + 1] +" ";
             s += "\n";
         }
+        s+="\nGib gültigen Zug ein (1-9 + <ENTER>)"+
+           "\n[0: Computer zieht, ?: Hilfe]: _";
         return s;
+
     }
 }
 
