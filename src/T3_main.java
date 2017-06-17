@@ -27,7 +27,7 @@ public class T3_main {
                 System.out.println("X/O hat gewonnen.//Unentschieden");//muss noch rausfinden wie man das richtige schreibt;
                 System.out.println("Gib \"new\" für ein neues Spiel ein, oder \"exit\" um das Spiel zu beenden!");
                 System.out.println("[?: Hilfe]: _");
-                user_entry(game);
+                user_entry(game); //hier liegt der bug, wenn new nach spielende ausgeführt wird, wird die letzte eingabe nicht beachtet
             }
         }
     }
