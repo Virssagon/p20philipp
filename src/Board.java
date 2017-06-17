@@ -8,12 +8,7 @@ class Board implements Cloneable {
     int[] board = new int[9];
     int turn = +1;
     Stack<Integer> history = new Stack<>();
-    int bestzug;
 
-    //int max(){
-    //   if (threeInARow()) return -1;
-    //
-    //}
     void makeMove(int... positions) {
         Arrays.stream(positions).forEachOrdered(this::makeMove);
         // Arrays.stream(positions).forEachOrdered(pos -> makeMove(pos));
@@ -96,52 +91,3 @@ class Board implements Cloneable {
 
     }
 }
-
-/*void minimax() {
-        if(threeInARow()) return;
-        int res;
-        if(turn == 1) res = max(turn,5);
-        else res = min(turn,5);
-        makeMove(bestzug);
-    }
-    int max(int spieler,int tiefe) {
-        if(tiefe == 0 || isDraw() || threeInARow()) return bewerten(spieler);
-        int zug = possiblePlays().get(0);
-        int maxWert = Integer.MIN_VALUE;
-        for(int p : possiblePlays()) {
-            makeMove(p);
-            int wert = min(-spieler,tiefe-1);
-            undoMove();
-            if(tiefe == 4) zug = p;
-            //System.out.println("zug = " + zug);
-            //System.out.println("wert = " + wert);
-            if(wert > maxWert) {
-                System.out.println("wert="+wert);
-                maxWert = wert;
-                bestzug = zug;
-            }
-        }
-        return maxWert;
-    }
-    int min(int spieler, int tiefe) {
-        if(tiefe == 0 || isDraw() || threeInARow()) return bewerten(spieler);
-
-        int zug = possiblePlays().get(0);
-        int minWert = Integer.MAX_VALUE;
-        for(int p : possiblePlays()) {
-            makeMove(p);
-            int wert = max(-spieler,tiefe-1);
-            undoMove();
-            if(wert < minWert) {
-                minWert = wert;
-                if(turn == -1){
-                    bestzug = zug;
-                }
-            }
-        }
-        return minWert;
-    }
-    int bewerten(int spieler) {
-        if(threeInARow()) return -spieler;
-        else return 0;
-    }*/

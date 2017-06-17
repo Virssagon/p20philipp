@@ -5,7 +5,6 @@ import java.util.Scanner;
  */
 public class T3_main {
     public static void main(String[] args) {
-        boolean game_run = true;
         int user_entry;
         Board game = new Board();
         System.out.println("Hallo User, das hier ist das Spiel ~Tic-Tac-Toe~");
@@ -14,21 +13,26 @@ public class T3_main {
                 "|4|5|6|\n" +
                 "|7|8|9|");
         System.out.println("Wenn der Computer ziehen soll, gib 0 ein!");
-        while (game_run) {
+        while (true) {
             System.out.println(game.toString());
-            user_entry = check_user_entry(game) - 1;
+            user_entry = user_entry(game) - 1;
             if (user_entry == -1) {
-                //System.out.println("Ich denke nach ... und setze auf " +computerzug);
+                System.out.println("Ich denke nach...");
+                //hier spiel-algorithmus aufrufen
+            }else{
+                game.makeMove(user_entry);
             }
-            game.makeMove(user_entry);
             if (game.isDraw() || game.threeInARow()) {
                 System.out.println(game.toString());
-                game_run = false;
+                System.out.println("X/O hat gewonnen.//Unentschieden");//muss noch rausfinden wie man das richtige schreibt;
+                System.out.println("Gib \"new\" für ein neues Spiel ein, oder \"exit\" um das Spiel zu beenden!");
+                System.out.println("[?: Hilfe]: _");
+                user_entry(game);
             }
         }
     }
 
-    private static int check_user_entry(Board game) {
+    private static int user_entry(Board game) {
         boolean check = true;
         String test_str;
         int user_int = 0;
@@ -45,12 +49,14 @@ public class T3_main {
                         check = false;
                     } else {
                         System.out.println("Dieser Platz ist schon belegt, gib einen neuen Zug ein: _");
+                        System.out.println(game.toString());
                     }
                 } else {
-                    System.out.println("Bitte gib eine Zahl von 0-9 ein: _");
+                    System.out.println("Ungültige Eingabe! Bitte gib eine Zahl von 0-9 ein: _");
+                    System.out.println(game.toString());
                 }
             } else {
-                switch (test_str){
+                switch (test_str.toLowerCase()) {
                     case "?":
                         help();
                         System.out.println(game.toString());
@@ -69,8 +75,9 @@ public class T3_main {
                         System.exit(0);
                         break;
                     case "new":
-                        Board x = new Board();
-                        game = x;
+                        while(game.possiblePlays().size()!=9){
+                            game.undoMove();
+                        }
                         System.out.println(game.toString());
                         break;
                     case "undo":
@@ -78,7 +85,8 @@ public class T3_main {
                         System.out.println(game.toString());
                         break;
                     default:
-                        System.out.println("Bitte gib eine Zahl ein: _");
+                        System.out.println("Unbekannter Befehl, gib \"help\" für eine Auswahl an Befehlen ein.: _");
+                        System.out.println(game.toString());
                 }
             }
         }
@@ -111,6 +119,13 @@ public class T3_main {
         System.out.println("load    Lädt letzte gespeicherte Spielsituation");
         System.out.println("help    Zeigt diese Übersicht an");
         System.out.println("?       Wie \"help\"");
+
+    }
+
+    private static void savegame(Board b){
+
+    }
+    private static void load(){
 
     }
 }
